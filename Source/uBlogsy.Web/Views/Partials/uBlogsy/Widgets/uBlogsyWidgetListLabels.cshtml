@@ -1,0 +1,39 @@
+﻿@*
+    Lists all labels.
+*@
+
+@using System.Linq
+@using uBlogsy.BusinessLogic;
+@inherits UmbracoTemplatePage
+@{
+    // get all labels
+    var labels = PostService.Instance.GetLabels(Model.Content, true);
+    //var labels = NoLuceneFallbackService.Instance.GetLabels(Model.Content.Id, true);
+
+    if (!labels.Any()) { return; }
+
+    // get landing page
+    var landing = DataService.Instance.GetLanding(Model.Content);
+
+    @RenderForWidget(landing, labels)
+}
+
+
+@helper RenderForWidget(IPublishedContent landing, IEnumerable<IPublishedContent> labels)
+{
+    // display labels
+    <section class="uBlogsy_labels_container uBlogsy_bottom_border">
+        <h2 class="uBlogsy_head_style20">@Umbraco.GetDictionaryValue("uBlogsyDicCategoriesAll")
+        </h2>
+        <ul class="uBlogsy_labels">
+            @foreach (var c in labels)
+            {
+                var label = c.GetPropertyValue<string>("uBlogsyLabelName");
+                if (!string.IsNullOrEmpty(label))
+                {
+                    <li><a href="@landing.Url()?label=@Server.UrlEncode(label)" title="@label">@label</a></li>
+                }
+            }
+        </ul>
+    </section>
+}

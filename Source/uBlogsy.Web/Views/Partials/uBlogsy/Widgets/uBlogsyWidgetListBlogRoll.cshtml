@@ -1,0 +1,43 @@
+﻿@*
+    Lists external blog items.
+*@
+
+@using System.Linq
+@using uBlogsy.Common.Helpers
+@using uBlogsy.BusinessLogic
+@using umbraco.BusinessLogic
+@inherits UmbracoTemplatePage
+@{
+    var landing = DataService.Instance.GetLanding(Model.Content);
+    var links = landing.GetPropertyValue<string>("uBlogsyBlogLinks").Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+    var count = (int)ViewData["ItemLimit"];
+    RssReader reader;
+    
+    <section class="uBlogsy_blogroll_container">
+        <ul class="uBlogsy_blogroll">
+            @foreach (var link in links)
+            {
+                if (link.Trim() == string.Empty){ continue; }
+                try
+                {
+                    reader = RssReader.CreateAndCache(link, new TimeSpan(0, 10, 0));
+                }
+                catch(Exception ex)
+                {
+                    Log.Add(LogTypes.Error, Model.Content.Id, string.Format("Error getting rss feeed {0}, {1}", link, ex));
+                    reader = null;
+                }
+                if (reader == null) { continue; }
+                <li>
+                    <h2 class="uBlogsy_head_style20">@reader.Title</h2>
+                    <ul>
+                        @foreach (RssItem item in reader.Items.OrderByDescending(x => x.Date).Take(count))
+                        {
+                            <li><a href="@item.Link" title="@item.Title">@item.Title</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </section>
+}

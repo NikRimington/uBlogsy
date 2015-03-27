@@ -1,0 +1,40 @@
+﻿@*
+    Lists Labels for a post. Labels are basically tags, but are not meant to be so ad-hoc.
+    A typical use would be as a small set of categories. 
+    Gets called from /Landing/uBlogsyLandingShowPost.cshtml and /Post/uBlogsyPostShowPost.cshtml
+*@
+
+@using System.Linq
+@using uBlogsy.BusinessLogic;
+@using uHelpsy.Helpers
+@inherits UmbracoTemplatePage
+@{
+    var labels = PostService.Instance.GetLabels((IPublishedContent)ViewData["Node"], false);
+    if (!labels.Any()) { return; }
+
+    // get landing page
+    var landing = DataService.Instance.GetLanding(Model.Content);
+    
+    @RenderForPost(landing, labels)
+}
+
+
+
+@helper RenderForPost(IPublishedContent landing, IEnumerable<IPublishedContent> labels)
+{
+    <div class="uBlogsy_labels_container">
+        <h5 class="uBlogsy_font_style40">@Umbraco.GetDictionaryValue("uBlogsyDicCategories")</h5>
+        <ul class="uBlogsy_labels uBlogsy_font_style50">
+            @foreach (var node in labels)
+            {
+                var label = node.GetPropertyValue<string>("uBlogsyLabelName");
+                if (!string.IsNullOrEmpty(label))
+                {
+                    <li><a href="@landing.Url()?label=@Server.UrlEncode(label)" title="@label">@label</a></li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+

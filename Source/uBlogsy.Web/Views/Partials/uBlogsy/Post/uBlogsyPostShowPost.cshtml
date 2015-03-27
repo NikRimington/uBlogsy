@@ -1,0 +1,114 @@
+﻿@*
+    Shows post. This is almost identical to /Landing/uBlogsyLandingShowPost.cshtml but gives you the option to customise it individually.
+*@
+
+@using uBlogsy.BusinessLogic
+@using uBlogsy.Common.Extensions
+@inherits UmbracoTemplatePage
+@{
+    // image settings
+    const string defaultImage = "http://placekitten.com/g/300/200/"; // change this if want a default image. eg "http://placekitten.com/g/300/200/", else make it null (no "")
+    const int imageHieght = -1; // -1 if no height specified
+    const int imageWidth = 300;
+
+    var node = (IPublishedContent)ViewData["Node"];
+
+    var url = node.Url().GetUrlWithQueryString(Request.QueryString, new[] { "action", "success" });
+    
+    @ShowPost(node, url, imageHieght, imageWidth, defaultImage)
+}
+
+
+
+@helper ShowPost(IPublishedContent node, string url, int imageHieght, int imageWidth, string defaultImage)
+    {
+        <article class="uBlogsy_post uBlogsy_bottom_border">
+        <h2>
+            <a href="@url" title="@node.GetPropertyValue("uBlogsyContentTitle")"><span>@node.GetPropertyValue("uBlogsyContentTitle")</span></a></h2>
+        <h3 class="uBlogsy_post_date uBlogsy_font_style40">@(node.GetPropertyValue<DateTime>("uBlogsyPostDate").ToString("dddd MMMM d, yyyy"))</h3>
+
+        <section class="uBlogsy_post_body">
+            @RenderPostImage(node, imageHieght, imageWidth, defaultImage)
+
+            @Html.Raw(library.RenderMacroContent(node.GetPropertyValue<string>("uBlogsyContentBody"), node.Id))
+        </section>
+
+        <aside class="uBlogsy_post_details">
+            @*list tags*@
+            <div class="uBlogsy_tag_container">
+                @Html.Partial("uBlogsy/Post/uBlogsyPostListTags", new ViewDataDictionary(ViewData) { { "ShowCount", true } })
+            </div>
+
+            @*list labels*@
+            <div class="uBlogsy_label_container">
+                @Html.Partial("uBlogsy/Post/uBlogsyPostListLabels", ViewData)
+            </div>
+            
+            @*list authors*@
+            @Html.Partial("uBlogsy/Post/uBlogsyPostListAuthors", ViewData)
+                
+        </aside>
+            
+        @*link to comments on this page - install uCommentsy, then uncomment this line*@
+        @try
+        {
+            @Html.Partial("uCommentsy/uCommentsyShowLinkToComments", ViewData)
+        }
+        catch (Exception) { }
+            
+        @*Social media links*@
+        @RenderSocialMedia(node)
+    </article>
+}
+
+
+
+
+@helper RenderSocialMedia(IPublishedContent node)
+    {
+        var showSocialLinks = DataService.Instance.GetValueFromLanding(node, "uBlogsyGeneralShowSocialMedia");
+        if (showSocialLinks == "1")
+        {
+            //AddThis Button BEGIN
+        <aside class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        </aside>
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f20a32b369fc730"></script>
+        }
+}
+
+
+
+
+
+
+
+@helper RenderPostImage(IPublishedContent node, int imageHieght, int imageWidth, string defaultImage)
+    {
+    var imageId = node.GetPropertyValue<string>("uBlogsyPostImage");
+
+    if (string.IsNullOrWhiteSpace(imageId) && string.IsNullOrWhiteSpace(defaultImage))
+    {
+        // no property or default so do nothing
+        return;
+    }
+
+    var imageData = new Dictionary<string,object>()
+             {
+                 {"Alias", "uBlogsyPostImage"},
+                 {"Suffix", ""},
+                 {"Height", imageHieght},
+                 {"Width", imageWidth},
+                 {"CssClass", "uBlogsy_post_image"},
+                 {"Title", "Main Image"},
+                 {"Map", string.Empty },
+                 {"DefaultImage", defaultImage},
+                 {"Node", node}
+             };
+
+    <figure class="uBlogsy_post_image">
+        @Html.Partial("~/Views/Partials/uBlogsy/Shared/uBlogsyShowImage.cshtml", imageData)     
+    </figure>    
+ }

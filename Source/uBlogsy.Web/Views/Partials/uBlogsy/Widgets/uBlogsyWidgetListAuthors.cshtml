@@ -1,0 +1,38 @@
+@*
+    Lists all Authors.
+*@
+
+@using System.Linq
+@using uBlogsy.Common.Helpers
+@using uBlogsy.BusinessLogic;
+@inherits UmbracoTemplatePage
+@{
+    // get distinct authors
+    var authors = PostService.Instance.GetAuthors(Model.Content, true);
+    //var authors = NoLuceneFallbackService.Instance.GetAuthors(Model.Content.Id, true);
+
+    if (!authors.Any()) { return; }
+
+    var landing = DataService.Instance.GetLanding(Model.Content);
+    @RenderForWidget(landing, authors)
+}
+
+
+@helper RenderForWidget(IPublishedContent landing, IEnumerable<IPublishedContent> authors)
+{
+    <section class="uBlogsy_authors_container uBlogsy_bottom_border">
+        <h2 class="uBlogsy_head_style20">
+            @Umbraco.GetDictionaryValue("uBlogsyDicAuthors")</h2>
+        <ul class="uBlogsy_authors">
+            @* display authors *@
+            @foreach (var a in authors)
+            {
+                var name = a.GetPropertyValue<string>("uBlogsyAuthorName").Trim();
+                if (!string.IsNullOrEmpty(name))
+                {
+                <li> <a href="@landing.Url()?author=@Server.UrlEncode(name)" title="@name"><img src="@GravatarHelper.GetUrl(a.GetPropertyValue<string>("uBlogsyAuthorGravatarEmail"), (int)ViewData["GravatarSize"])" class="uBlogsy_gravatar_small"/><span>@name</span></a></li>
+                }
+            }
+        </ul>
+    </section>
+}

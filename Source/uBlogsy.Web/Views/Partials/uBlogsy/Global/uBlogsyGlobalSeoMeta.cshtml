@@ -1,0 +1,31 @@
+﻿@*
+    SEO Meta.
+*@
+
+@using uBlogsy.BusinessLogic
+@using uBlogsy.Common.Extensions;
+@using uHelpsy.Extensions
+@inherits UmbracoTemplatePage
+@{
+    // get seo description, use body when no description
+    var desc = Model.Content.GetValueFirstOf(new[] { "uBlogsySeoDescription", "uBlogsyContentBody" });
+
+    // get seo keywords, use title when no keywords
+    var keywords = Model.Content.GetValueFirstOf(new[] { "uBlogsySeoKeywords", "uBlogsyContentTitle" });
+
+    // get root of site, or landing - change uBlogsySiteRoot to your root alias, otherwise uBlogsyLanding will be used
+    var root = DataService.Instance.GetSiteRoot(Model.Content, "uBlogsySiteRoot") ?? DataService.Instance.GetLanding(Model.Content);
+
+    // get title of page
+    var title = root.GetPropertyValue("uBlogsyContentTitle"); @*change uBlogsyContentTitle to your title alias (if required)*@
+    if (Model.Content.Id != root.Id)
+    {
+        title += " : " + CurrentPage.uBlogsyContentTitle;
+    }
+    
+    
+    <meta name="keywords" content="@keywords.Trim()" />
+    <meta name="description" content="@uBlogsy.Common.Extensions.StringExtensions.StripHtml(desc).GetSummary(150).Trim()" />
+    <link rel="canonical" href="@(new Uri(Request.Url.AbsoluteUri).GetLeftPart(UriPartial.Path))"/> 
+    <title>@Html.Raw(title)</title>
+}

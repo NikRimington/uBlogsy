@@ -1,0 +1,16 @@
+@*
+    This is a simple header. 
+*@
+
+@using uBlogsy.BusinessLogic
+@inherits UmbracoTemplatePage
+@{
+    // get title of page - uBlogsySiteRoot to the alias of your root, otherwise this script will try to find the uBlogsy landing node up the tree.
+    var landing = DataService.Instance.GetSiteRoot(Model.Content, "uBlogsySiteRoot") ?? DataService.Instance.GetLanding(Model.Content);
+    <header id="uBlogsy_header">
+        <h1>
+            @*get site name*@
+            <a class="uBlogsy_head_style10" href="@landing.Url()">@landing.GetPropertyValue("uBlogsyContentTitle")</a> @*change uBlogsyContentTitle to your title alias (if required)*@
+        </h1>
+    </header>   
+}

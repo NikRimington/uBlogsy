@@ -1,0 +1,35 @@
+@*
+    Lists Related posts for a post. Gets called from /Landing/uBlogsyLandingShowPost.cshtml and /Post/uBlogsyPostShowPost.cshtml
+*@
+
+@using System.Linq
+@using uBlogsy.BusinessLogic
+@using uHelpsy.Extensions
+@inherits UmbracoTemplatePage
+@{
+    // get item count
+    var limit = (int)this.ViewData["ItemLimit"] != -1 ? (int)this.ViewData["ItemLimit"] : int.MaxValue;
+    var node = (IPublishedContent)ViewData["Node"];
+    
+    // can be uBlogsyPostTags, uBlogsyPostLabels, or empty string (gets both)
+    var relatedAlias = (string)this.ViewData["RelatedAlias"];
+
+    // get number of items to match
+    var matchCount = (int)this.ViewData["MatchCount"];
+
+    var nodes = PostService.Instance.GetRelatedPosts(node, relatedAlias, matchCount).Take(limit).ToIPublishedContent(true);
+
+    if (!nodes.Any()){ return; }
+    
+    <aside class="uBlogsy_related_posts_container uBlogsy_bottom_border uBlogsy_font_style20">
+        <h3>@library.GetDictionaryItem("uBlogsyDicPostsRelated")</h3>
+        <ul class="uBlogsy_related uBlogsy_font_style20">
+            @foreach (var n in nodes)
+            {
+                <li><a href="@n.Url()" title="@n.GetPropertyValue("uBlogsyContentTitle")"><span>@n.GetPropertyValue("uBlogsyContentTitle")</span>
+                </a>- <span class="uBlogsy_post_date">@(n.GetPropertyValue<DateTime>("uBlogsyPostDate").ToString("d MMMM yyyy"))</span>
+                </li>
+            }
+        </ul>
+    </aside>
+}

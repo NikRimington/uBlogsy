@@ -1,0 +1,17 @@
+{
+        propertyEditors: [                
+                {
+                        alias: "uTagsy",
+                        name: "[uTagsy] Tag Editor",
+                        hideLabel: false,
+                        valueType: "INT",
+                        editor: {
+                                view: "~/App_Plugins/uTagsy/propertyEditors/uTagsyEditor.html?v=123"
+                        }
+                }
+        ],
+
+        javascript: [
+            '~/App_Plugins/uTagsy/propertyEditors/uTagsyEditor.controller.js?v=123' 
+        ]
+}

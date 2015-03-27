@@ -1,0 +1,101 @@
+﻿@using Umbraco.Core
+@using Umbraco.Core.Services
+@using uHelpsy.Helpers
+
+@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+}
+ 
+@{
+    CreateTags();
+
+    var tagIds = ContentService.GetChildren(TagContainerId).Select(x => x.Id).ToList();
+
+    var r = new Random();
+    
+    for (int i = StartNumber; i < StartNumber + NodesToCreate; i++)
+    {
+        // get updated node
+        var root = ContentService.GetById(RootNodeId);
+        var year = r.Next(1979, 2020);
+        var month = r.Next(1, 13);
+        var day = r.Next(1, 28);
+
+        var yearNode = EnsureDateFolderExists(root, "uBlogsyFolderYear", year);
+        var monthNode = EnsureDateFolderExists(yearNode, "uBlogsyFolderMonth", month);
+        var dayNode = EnsureDateFolderExists(monthNode, "uBlogsyFolderDay", day);
+        
+        
+        var title = "Title " + i; //DateTime.UtcNow.ToString("yyyy-MM-dd HHmm.ss.fff");
+        
+        var properties = new Dictionary<string, object>(){
+                    { "uBlogsyPostDate", new DateTime(year, month, r.Next(1, 29)).ToString()},
+                    { "uBlogsyContentTitle", title},
+                    { "uBlogsyContentSummary", GetSummary(100, 1000)},
+                    { "uBlogsyContentBody", GetSummary(100, _Body.Length - 1)},
+                    { "uBlogsyPostAuthor", AuthorIds[r.Next(AuthorIds.Count)]},
+                    { "uBlogsyPostLabels", LabelIds[r.Next(LabelIds.Count)]},
+                    { "uBlogsyPostTags", tagIds[r.Next(tagIds.Count())]}
+                };
+
+        var d = IContentHelper.CreateContentNode(title, "uBlogsyPost", properties, dayNode.Id, true);
+    }
+}
+
+
+@functions{
+    string _Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a feugiat massa. Nam hendrerit ultrices mi, eu pulvinar elit aliquam sed. Vivamus tellus nisl, porta at feugiat ac, feugiat eu augue. Ut vulputate rutrum neque, euismod porttitor eros faucibus vitae. Fusce egestas pharetra ultrices. Nam non porttitor erat. Fusce nec turpis ante, non vestibulum enim. Donec sit amet enim odio, nec tempor lorem. In et ipsum enim, non fermentum dolor. Duis varius, ante eu tincidunt porta, felis tortor pellentesque purus, in porta urna tellus vel ante. Praesent eleifend pellentesque imperdiet. Vivamus velit sapien, iaculis vel luctus et, sollicitudin in felis. Cras suscipit tortor at libero sollicitudin id dignissim nulla fermentum. Etiam gravida tellus sit amet libero posuere egestas. Suspendisse potenti. Ut facilisis arcu vitae enim malesuada tristique. Pellentesque sagittis molestie sodales. Etiam porttitor, diam sed rhoncus lobortis, odio nulla euismod tortor, ut auctor eros felis in nibh. Etiam neque felis, blandit sit amet pharetra et, hendrerit non lectus. Cras id libero ac sapien laoreet fermentum eu et lacus Suspendisse imperdiet ante at justo consequat semper. Sed fringilla, lacus nec eleifend gravida, nibh odio gravida eros, quis facilisis sem nisl a dui. Cras eros nulla, molestie id laoreet eu, pulvinar vitae eros. Etiam ullamcorper sagittis orci non cursus. Aliquam ultricies, lacus nec pretium egestas, metus enim cursus ipsum, id ultrices mi nibh eget nibh. Proin viverra turpis nec tortor dictum vel varius purus faucibus. Nam lorem massa, aliquam sit amet commodo et, vestibulum et tellus. Curabitur a est vitae mauris pulvinar ultricies in nec odio. Etiam euismod, turpis nec luctus iaculis, urna lectus vestibulum metus, eget condimentum urna ligula lacinia orci. Praesent fringilla pretium purus, in pellentesque ipsum elementum eget. Mauris lorem nibh, tempor vel aliquet non, bibendum sed orci. Donec orci nibh, bibendum vitae hendrerit vel, rhoncus non enim. Vivamus porttitor venenatis neque nec semper. Aenean viverra iaculis faucibus. Maecenas vulputate cursus tempor. Curabitur consequat, sem a egestas tincidunt, nunc lorem ornare risus, et vestibulum leo augue a felis. Cras eu est magna. Phasellus facilisis, purus vel suscipit cursus, mi augue varius magna, sed ornare est nulla ut libero. Etiam justo augue, congue nec consequat quis, commodo sed nibh. Maecenas sit amet quam quis libero convallis lobortis ut sed massa. Curabitur venenatis mollis turpis, at pretium tortor fringilla condimentum. Morbi urna velit, adipiscing eget viverra eget, sollicitudin nec augue. Suspendisse id metus eget leo tempus cursus non non urna. Maecenas est augue, fermentum sit amet auctor sit amet, ultrices sit amet velit. Curabitur ut ipsum turpis. Curabitur sodales vestibulum adipiscing. Morbi ornare bibendum tortor, a pellentesque purus semper vestibulum. Maecenas diam nisi, adipiscing eget convallis id, iaculis a tortor. Curabitur non mauris lacus, at dapibus sapien. Pellentesque a dolor et nunc scelerisque scelerisque. Aenean dictum augue et velit tristique volutpat. Vivamus dictum, mauris id luctus imperdiet, neque lectus aliquam erat, rutrum rutrum enim ipsum in dui.";
+    
+    int RootNodeId = 1072;
+    int TagContainerId = 1145;
+
+    List<int> AuthorIds = new[] { 1109, 1110 }.ToList();
+    List<int> LabelIds = new[] { 1157, 1170, 1171 }.ToList();
+    List<string> Tags = new List<string>();
+
+                        
+    IContentService ContentService = UmbracoContext.Current.Application.Services.ContentService;
+    int NodesToCreate = int.Parse(HttpContext.Current.Request["nodes"]);
+    int StartNumber = int.Parse(HttpContext.Current.Request["start"]);
+
+    void CreateTags()
+    {
+        // create tags
+        for (int i = 0; i < 200; i++ )
+        {
+            var tag = "tag" + i;
+            if (ContentService.GetChildren(TagContainerId).Any(x => x.Name == tag))
+            {
+                continue;
+            }
+
+            var node = ContentService.CreateContent(tag, TagContainerId, "uTagsyTag");
+            node.SetValue("uTagsyTagName", tag);
+            ContentService.SaveAndPublish(node);
+        }
+    }
+
+    string GetSummary(int min, int max)
+    {
+        Random r = new Random();
+        int end = r.Next(min, max);
+        return _Body.Substring(0, end);
+    }
+
+
+    IContent EnsureDateFolderExists(IContent root, string nodeTypeAlias, int i)
+    {
+        var contentService = UmbracoContext.Application.Services.ContentService;
+            
+        var name = i < 10 ? "0" + i : i.ToString();
+        var d = contentService.GetChildren(root.Id).SingleOrDefault(x => x.Name.Trim().StartsWith(name.Trim()));
+        if (d == null)
+        {
+            d = contentService.CreateContent(name, root.Id, nodeTypeAlias);
+            contentService.SaveAndPublish(d);
+        }
+
+        return d;
+    }
+}

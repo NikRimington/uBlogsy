@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{347DC923-8E49-44A3-82FA-6BDFBD424554}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uBlogsy.Web</RootNamespace>
+    <AssemblyName>uBlogsy.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="businesslogic, Version=1.0.4779.24223, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\businesslogic.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\ClientDependency.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core.Mvc">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="cms, Version=1.0.4779.24224, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\cms.dll</HintPath>
+    </Reference>
+    <Reference Include="controls, Version=1.0.4779.24224, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\controls.dll</HintPath>
+    </Reference>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+    <Reference Include="Examine">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="interfaces, Version=1.0.4779.24221, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Our.Umbraco.uGoLive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Our.Umbraco.uGoLive.dll</HintPath>
+    </Reference>
+    <Reference Include="Our.Umbraco.uGoLive.47x, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Our.Umbraco.uGoLive.47x.dll</HintPath>
+    </Reference>
+    <Reference Include="Our.Umbraco.uGoLive.Checks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Our.Umbraco.uGoLive.Checks.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\Solution\packages\ServiceStack.Text.3.9.35\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLCE4Umbraco, Version=1.0.4779.24223, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\SQLCE4Umbraco.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Solution\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\TidyNet.dll</HintPath>
+    </Reference>
+    <Reference Include="uDateFoldersy">
+      <HintPath>..\..\Dependencies\Libraries\uDateFoldersy\uDateFoldersy.dll</HintPath>
+    </Reference>
+    <Reference Include="uHelpsy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Libraries\uHelpsy\uHelpsy.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco, Version=1.0.4779.24225, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Core, Version=1.0.4779.24222, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Umbraco.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.DataLayer, Version=1.0.4779.24223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.DataLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.editorControls, Version=1.0.4779.24227, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.editorControls.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.4779.24227, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.MacroEngines.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.macroRenderings, Version=1.0.4779.24224, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.macroRenderings.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.providers, Version=1.0.4779.24224, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.4779.24227, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.webservices, Version=1.0.4779.24227, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.webservices.dll</HintPath>
+    </Reference>
+    <Reference Include="umbraco.XmlSerializers, Version=1.0.4779.24225, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\umbraco.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="UmbracoExamine, Version=0.1.42.2941, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\UmbracoExamine.dll</HintPath>
+    </Reference>
+    <Reference Include="UrlRewritingNet.UrlRewriter, Version=2.0.60829.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution\packages\UmbracoCms.Core.6.0.0\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
+    </Reference>
+    <Reference Include="uTagsy.Web">
+      <HintPath>..\..\Dependencies\Libraries\uTagsy\uTagsy.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usercontrols\uBlogsy\dashboard\CreatePost.ascx.cs">
+      <DependentUpon>CreatePost.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrols\uBlogsy\dashboard\CreatePost.ascx.designer.cs">
+      <DependentUpon>CreatePost.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrols\uBlogsy\dashboard\Installer.ascx.cs">
+      <DependentUpon>Installer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrols\uBlogsy\dashboard\Installer.ascx.designer.cs">
+      <DependentUpon>Installer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrols\uBlogsy\dashboard\RSSImport.ascx.cs">
+      <DependentUpon>RSSImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrols\uBlogsy\dashboard\RSSImport.ascx.designer.cs">
+      <DependentUpon>RSSImport.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\Form.browser" />
+    <Content Include="App_Browsers\w3cvalidator.browser" />
+    <Content Include="css\dummy.txt" />
+    <Content Include="css\uBlogsy.css" />
+    <Content Include="default.aspx" />
+    <Content Include="Images\uBlogsy_feed-icon-14x14.png" />
+    <Content Include="macroScripts\dummy.txt" />
+    <Content Include="masterpages\dummy.txt" />
+    <Content Include="media\dummy.txt" />
+    <Content Include="scripts\dummy.txt" />
+    <Content Include="usercontrols\dummy.txt" />
+    <Content Include="usercontrols\uBlogsy\dashboard\CreatePost.ascx" />
+    <Content Include="usercontrols\uBlogsy\dashboard\Installer.ascx" />
+    <Content Include="usercontrols\uBlogsy\dashboard\RSSImport.ascx" />
+    <Content Include="usercontrols\uTagsy\uTagsy.ascx" />
+    <Content Include="xslt\dummy.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\uLoremsy.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uBlogsy.BusinessLogic\uBlogsy.BusinessLogic.csproj">
+      <Project>{6441BCE0-8C40-4F63-873B-5F0FDE52CC50}</Project>
+      <Name>uBlogsy.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uBlogsy.Common\uBlogsy.Common.csproj">
+      <Project>{D5176D34-514A-44B2-B966-65FBBD27EB40}</Project>
+      <Name>uBlogsy.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uBlogsy.Mvc.Parts\uBlogsy.Mvc.Parts.csproj">
+      <Project>{C3FCA819-2EB6-455C-9743-853266E47391}</Project>
+      <Name>uBlogsy.Mvc.Parts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\uBlogsy\Global\uBlogsyGlobalBrowserTitle.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Post\uBlogsyPostListAuthors.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListBlogRoll.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Post\uBlogsyPostListLabels.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListPostArchive.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Landing\uBlogsyLandingListPosts.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Post\uBlogsyPostListRelatedPosts.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Post\uBlogsyPostListTags.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Global\uBlogsyGlobalNavigation.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetSearch.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Global\uBlogsyGlobalSeoMeta.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Post\uBlogsyPostShowPost.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetShowRSSLink.cshtml" />
+    <Content Include="Views\uBlogsyFolder.cshtml" />
+    <Content Include="Views\uBlogsyLanding.cshtml" />
+    <Content Include="Views\uBlogsyPage.cshtml" />
+    <Content Include="Views\uBlogsyPost.cshtml" />
+    <Content Include="Views\uBlogsyRss.cshtml" />
+    <Content Include="Views\_uBlogsyBase.cshtml" />
+    <Content Include="Views\_uBlogsyBaseSite.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\packages\created\createdPackages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Partials\uBlogsy\Global\uBlogsyGlobalHeader.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Global\uBlogsyGlobalFooter.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListAuthors.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListLabels.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListPosts.cshtml" />
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListTags.cshtml" />
+    <Content Include="Views\NodeCreator.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\uTagsy.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="config\uDateFoldersy.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\uDatefoldersyFolderRedirect.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\uDateFoldersy\uDateFoldersyFolderRedirect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\uBlogsy\Shared\uBlogsyShowImage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\uBlogsy\Widgets\uBlogsyWidgetListPostsForHome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_uBlogsyBaseBlog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\uBlogsySiteHome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\uBlogsy\Landing\uBlogsyLandingShowPost.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\MacroPartials\uBlogsy\uBlogsyMacroShowSomeLove.cshtml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49539</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60000/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

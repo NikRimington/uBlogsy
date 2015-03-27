@@ -1,0 +1,18 @@
+@*
+    Renders an RSS link.
+*@
+
+@using System.Linq;
+@using uBlogsy.BusinessLogic;
+@inherits UmbracoTemplatePage
+<div class="uBlogsy_rss_link_container uBlogsy_bottom_border">
+    <h2 class="uBlogsy_head_style20">
+        @{
+            // get landing page
+            var landing = DataService.Instance.GetLanding(Model.Content);
+            var rss = landing.Children.Single(x => x.DocumentTypeAlias == "uBlogsyRSS");
+            <a href="@rss.Url()" class="uBlogsy_feed" title="RSS"><span>@Umbraco.GetDictionaryValue("uBlogsyDicRssSubscribe")</span></a>    
+        }
+    </h2>
+ </div>
+

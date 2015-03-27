@@ -1,0 +1,110 @@
+﻿@*
+    Renders an image.
+*@
+@using System.Xml.Linq
+@using uBlogsy.Common.Extensions
+@using uHelpsy.Singletons
+@using File = System.IO.File
+@inherits UmbracoViewPage<Dictionary<string,object>>
+
+@{
+    // get view params
+    // note: I purposely made this a dictionary so that it is extensible without recompiling code
+    var d = (IPublishedContent)Model["Node"];
+    var alias = (string)Model["Alias"];
+    var suffix = (string)Model["Suffix"];
+    var width = (int)Model["Width"];
+    var height = (int)Model["Height"];
+    var cssClass = (string)Model["CssClass"];
+    var title = (string)Model["Title"];
+    var map = (string)Model["Map"];
+    var defaultImage = (string)Model["DefaultImage"];
+}
+
+@{   
+    var imageId = d.GetPropertyValue(alias, string.Empty).ToString();
+    if (string.IsNullOrWhiteSpace(imageId) && string.IsNullOrWhiteSpace(defaultImage))
+    {
+        // no property or default so do nothing
+        return;
+    }
+    // this is for DAMP - just gets first id listed
+    if (imageId.ToLower().Contains("<damp"))
+    {
+        if (imageId.ToLower().Contains("<mediaitem>"))
+        {
+            var damp = XDocument.Parse(imageId).Descendants("Image").FirstOrDefault();
+            if (damp == null) { return; }
+            imageId = damp.Attribute("id").Value;
+        }
+        else
+        {
+            var damp = XDocument.Parse(imageId).Descendants("damp").FirstOrDefault();
+            if (damp == null) { return; }
+            imageId = damp.Value.Split(",".ToCharArray()).FirstOrDefault();
+        }
+        if (imageId == null) { return; }
+    }
+
+
+    // get media
+    var media = uHelpsyUmbracoHelper.Instance.TypedMedia(imageId);
+
+    var url = media != null ? media.Url().GetUrl(suffix, "jpg") : defaultImage.GetUrl(suffix, "jpg");
+
+    if(!string.IsNullOrEmpty(suffix))
+    {
+        
+    }
+    
+    
+    // add image gen parameters
+    var imageGenParams = "&constrain=true&compression=100";
+    if (width != -1)
+    {
+        imageGenParams += "&width=" + width;
+    }
+    if (height != -1)
+    {
+        imageGenParams += "&height=" + height;
+    }
+
+    // get host - check for https
+    var src = !File.Exists(Server.MapPath("~/ImageGen.ashx")) ? url : string.Format("/ImageGen.ashx?image={0}{1}", url, imageGenParams);
+        
+    @RenderImage(src, width, height, title, cssClass, map)
+}
+
+
+@helper RenderImage(string url, int width, int height, string title, string cssClass, string useMap)
+    {
+        var style = string.Empty;
+        if (height != -1)
+        {
+            style += string.Format("height:{0}px;", height);
+        }
+        if (width != -1)
+        {
+            style += string.Format("width:{0}px;", width);
+        }
+
+        if (!string.IsNullOrEmpty(useMap))
+        {
+        <img src="@url" alt="@title" class="@cssClass" usemap="@useMap" style="@style"/>
+        }
+        else
+        {
+        <img src="@url" alt="@title" class="@cssClass" style="@style"/>
+        }
+}
+
+
+
+@functions{
+    string GetHost()
+    {
+        string protocol = HttpContext.Current.Request.IsSecureConnection ? "https" : "http";
+        var host = string.Format("{0}://{1}", protocol, HttpContext.Current.Request.ServerVariables["HTTP_HOST"]);
+        return host;
+    }
+}

@@ -1,0 +1,17 @@
+@*
+    Gets the head title.
+*@
+
+@using uBlogsy.BusinessLogic
+
+@inherits UmbracoTemplatePage
+@{
+    // get title of page - uBlogsySiteRoot to the alias of your root, otherwise this script will try to find the uBlogsy landing node up the tree.
+    var landing = DataService.Instance.GetSiteRoot(Model.Content, "uBlogsySiteRoot") ?? DataService.Instance.GetLanding(Model.Content);
+    var title = landing.GetPropertyValue("uBlogsyContentTitle"); @*change uBlogsyContentTitle to your title alias (if required)*@
+    if (Model.Content.Id != landing.Id)
+    {
+        title += " : " + CurrentPage.uBlogsyContentTitle;
+    }
+    <title>@title</title>
+}

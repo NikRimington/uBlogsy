@@ -1,0 +1,22 @@
+﻿@*
+    Renders a search field.
+*@
+
+@using uBlogsy.BusinessLogic;
+@inherits UmbracoTemplatePage
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#uBlogsyBtnSearch').click(function(){
+            @{var landing = DataService.Instance.GetLanding(Model.Content); }
+            window.location.href = "@landing.Url()" + '?search=' + $("#uBlogsyTxtSearch").val();
+            return false;
+        });
+        $('#uBlogsyTxtSearch').keyup(function (e) {
+            if(e.which == 13) {$('#uBlogsyBtnSearch').trigger('click');}
+        });
+    });
+</script>
+<div class="uBlogsy_search">
+    <input id="uBlogsyTxtSearch" type="text" placeholder="@Umbraco.GetDictionaryValue("uBlogsyDicSearch")" />
+    <input id="uBlogsyBtnSearch" type="submit" value="@Umbraco.GetDictionaryValue("uBlogsyDicSearchSubmit")"  />
+</div>

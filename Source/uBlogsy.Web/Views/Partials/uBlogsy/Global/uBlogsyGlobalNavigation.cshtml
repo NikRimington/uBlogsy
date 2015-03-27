@@ -1,0 +1,36 @@
+@*
+ This navigation can be modified to suite your site. 
+*@
+
+@using System.Linq
+@using uBlogsy.BusinessLogic
+@inherits UmbracoTemplatePage
+@{
+    // change uBlogsySiteRoot to your root alias if it is not a level 1 node.
+    var root = DataService.Instance.GetSiteRoot(Model.Content, "uBlogsySiteRoot") ?? Model.Content.AncestorOrSelf(1);
+
+    // get all pages
+    var nodes = root.Children;                   
+                        
+    <nav id="uBlogsy_nav" class="uBlogsy_font_style20">
+        @if (Request.Url.AbsolutePath == root.Url())
+        {
+            <a href="@root.Url()" class="uBlogsy_nav_item uBlogsy_current">@Umbraco.GetDictionaryValue("uBlogsyNavigationHome")</a>
+        }
+        else
+        {
+            <a href="@root.Url()" class="uBlogsy_nav_item">@Umbraco.GetDictionaryValue("uBlogsyNavigationHome")</a>
+        }
+        @foreach (var n in nodes)
+        {
+            if (Request.Url.AbsolutePath == n.Url())
+            {
+                <a href="@n.Url()" class="uBlogsy_nav_item uBlogsy_current">@n.GetPropertyValue("uBlogsyNavigationTitle")</a> @*change uBlogsyNavigationTitle to your title alias (if required)*@
+            }
+            else
+            {
+                <a href="@n.Url()" class="uBlogsy_nav_item">@n.GetPropertyValue("uBlogsyNavigationTitle")</a>
+            }
+        }
+    </nav>
+}
